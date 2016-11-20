@@ -1,0 +1,32 @@
+
+#include<iostream>
+#include<pthread.h>
+
+using namespace std;
+
+void* worker(void* i){
+  int tid=(int)i;
+  int x=0;
+  do{
+    int r=rand()%5+1;
+    x+=r;
+    sleep(1);
+    cout<<"tid "<<tid<<" Value: "<<x<<endl;
+  }while(x<40);
+  cout<<"TID :"<<tid<<"Won the race";
+  exit(0);
+  pthread_exit(NULL);
+  
+}
+int main(){
+  pthread_t threads[7];
+  for(int i=0;i<7;i++){
+    if(rc=pthread_create(&threads[i],NULL,worker,(void*)i)>0){
+      cout<<"UnableTocreateThread!";
+      return -1;
+    }
+  }
+  pthread_exit(NULL);
+  return 0;
+}
+    
