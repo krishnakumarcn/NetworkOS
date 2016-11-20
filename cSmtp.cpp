@@ -14,28 +14,22 @@ struct mail{
 	char content[1024];
 }m;
 int main(){
-
 	int sockfd=socket(PF_INET,SOCK_DGRAM,0);
 	sockaddr_in servaddr;
-	//bzero((char*)servaddr,sizeof(servaddr));
-
 	servaddr.sin_family=AF_INET;
 	servaddr.sin_port=htons(5000);
 	servaddr.sin_addr.s_addr=htonl(INADDR_ANY);
 
-	cout<<"From:   ";
-	cin>>m.from;
-	cout<<"To:     ";
-	cin>>m.to;
-	cout<<"Sub:    ";
-	cin>>m.sub;
-	cout<<"Content:";
-	cin>>m.content;
+	bind(sockfd,(struct sockaddr*)&servaddr,sizeof(servaddr));
 	socklen_t clilen=sizeof(servaddr);
-	int n=sendto(sockfd,&m,sizeof(m),0,(struct sockaddr*)&servaddr,clilen);
-	char buffer[100];
-	int n2=recvfrom(sockfd,&buffer,sizeof(buffer),0,(struct sockaddr*)&servaddr,&clilen);
-		cout<<"\n----------\n"<<buffer<<"-----------\n";
+	int n=recvfrom(sockfd,&m,sizeof(m),0,(struct sockaddr*)&servaddr,&clilen);
+	
+	cout<<"One Unread Mail..";
+	cout<<"\nTo:      "<<m.to;
+	cout<<"\nFrom     "<<m.from;
+	cout<<"\nSub:     "<<m.sub;
+	cout<<"\nContent: "<<m.content;
+	char buffer[100]="delivered";
+	int n2=sendto(sockfd,&buffer,sizeof(buffer),0,(struct sockaddr*)&servaddr,clilen);
 	return 0;
-
 }
