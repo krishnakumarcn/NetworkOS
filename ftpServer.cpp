@@ -45,12 +45,12 @@ int main(){
 	ofstream fp("gotFile.txt");
 	
 	while(1){
-		//bzero(buffer,256);
-		read(newsockfd,buffer,256);
+		bzero(buffer,256);
+		read(newsockfd,buffer,255);
 		if(buffer[0]=='\0')
 			break;
 		fp<<buffer;
-		fp<<endl<<endl;
+		fp<<endl;
 	}
 	fp.close();
 	cout<<"\nFile Recieved";

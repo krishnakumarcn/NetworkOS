@@ -24,9 +24,9 @@ int main(){
 	char buffer[256];
 	ifstream fp("toSend.txt");
 	while(!fp.eof()){
-		fp.getline(buffer,255);
-		cout<<"|| "<<buffer<<" ||";
-		write(sockfd,buffer,strlen(buffer));
+		fp.getline(buffer,255,'\n');
+		//cout<<"|| "<<buffer<<" ||";
+		write(sockfd,buffer,255);
 
 	}	
 	buffer[0]='\0';
