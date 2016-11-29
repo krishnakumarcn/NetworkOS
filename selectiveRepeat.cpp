@@ -42,11 +42,9 @@ int main(){
   }
   while(!data.empty()){
   	pair<int,char> d=data.front();
-  	sleep(1);
   	cout<<"Sending: "<<d.second<<" :"<<d.first <<endl;
   	data.pop();
   	ack=sock.recieve(d.second,d.first);
-  	sleep(1);
   	if(ack==-1){
   		cout<<"No ACK !!   :  -1 \n";
   		data.push(d);
@@ -56,7 +54,6 @@ int main(){
 
   	}
   }
-  sleep(1);
   cout<<"Recieved: "<<sock.recieveData()<<endl;
   
   return 0;
